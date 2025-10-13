@@ -3,9 +3,112 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>myPos</title>
-  </head>
-  <body>
-    <h1>Akila"s Pos</h1>
+    <title>MyPos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" data-target="home-page">SHAMO'S POS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-target="home-page">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="customer-page">Customer</a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="item-page">Item</a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="order-page">Order</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- home page -->
+    <section id="home-page" class="page">
+        home
+    </section>
+
+    <!-- customer page -->
+    <section id="customer-page" class="page">
+        <!-- CUstomer form modal toggle button -->
+        <button id="btn-customer-modal-open" class="btn btn-success">
+            <!-- data-bs-toggle="modal" data-bs-target="#customer-form-modal" -->
+            + Add Customer
+        </button>
+        <!-- Customer form modal -->
+        <div class="modal fade" id="customer-form-modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="customer-modal-title">Add Customer</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="d-flex flex-column gap-2">
+                            <input id="edit-index" type="hidden" />
+                            <input id="customer-id" type="text" placeholder="id" class="px-4 py-1" />
+                            <input id="customer-name" type="text" placeholder="name" class="px-4 py-1" />
+                            <input id="customer-address" type="text" placeholder="address" class="px-4 py-1" />
+                            <input id="customer-salary" type="number" placeholder="salary" class="px-4 py-1" />
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                        <button id="btn-customer-save" class="btn btn-primary" type="button">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <div class="w-100">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Salary</th>
+                            <th style="width: 150px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customer-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script src="assets/lib/jQuery/jquery-3.6.4.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
