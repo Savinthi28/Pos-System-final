@@ -10,8 +10,18 @@ const cleanForm = () => {
 
 const loadTable = () => {
   $("#item-table-body").empty();
-  item_array.forEach((item) => {
-    const dataElement = `<tr><td>${item.id}</td><td>${item.name}</td><td>Rs. ${item.price}.00</td><td>${item.qty}</td></tr>`;
+  item_array.forEach((item, index) => {
+    const dataElement = `<tr>
+    <td>${item.id}</td>
+    <td>${item.name}</td>
+    <td>Rs. ${item.price}.00</td>
+    <td>${item.qty}</td>
+      <td>
+    <button class="btn btn-warning btn-edit" data-index="${index}">Edit </button>
+    <button class="btn btn-danger btn-delete"data-index="${index}">Delete</button>
+    </td>
+    
+    </tr>`;
     $("#item-table-body").append(dataElement);
   });
 };
@@ -29,7 +39,7 @@ $("#btn-item-save").on("click", (e) => {
   loadTable();
   cleanForm();
 
-  const modalEl = document.getElementById("#item-form-modal");
+  const modalEl = document.getElementById("item-form-modal");
   const modal = bootstrap.Modal.getInstance(modalEl);
   modal.hide();
 });
