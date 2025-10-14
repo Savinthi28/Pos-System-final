@@ -8,12 +8,12 @@ const cleanForm = () => {
   $("#customer-salary").val("");
 };
 
-const cusromer = new Customer("C001", "Shamodha", "Colombo", "1000");
-const cusromer2 = new Customer("C002", "Shamodha", "Colombo", "1000");
-const cusromer3 = new Customer("C003", "Shamodha", "Colombo", "1000");
-customer_array.push(cusromer);
-customer_array.push(cusromer2);
-customer_array.push(cusromer3);
+// const cusromer = new Customer("C001", "Shamodha", "Colombo", "1000");
+// const cusromer2 = new Customer("C002", "Shamodha", "Colombo", "1000");
+// const cusromer3 = new Customer("C003", "Shamodha", "Colombo", "1000");
+// customer_array.push(cusromer);
+// customer_array.push(cusromer2);
+// customer_array.push(cusromer3);
 
 const loadTable = () => {
   $("#customer-table-body").empty();

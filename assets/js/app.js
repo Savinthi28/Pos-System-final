@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  $("#customer-page").show();
+  $("#home-page").show();
   //   $("#home-page").show()
 
   $(".nav-link, .navbar-brand").click(function (e) {
