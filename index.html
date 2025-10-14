@@ -143,7 +143,7 @@
                   <input
                     id="customer-address"
                     type="text"
-                    placeholder="e.g., Kandy, Sri Lanka"
+                    placeholder="e.g.Ambalangoda "
                     class="form-control"
                   />
                 </div>
@@ -174,8 +174,113 @@
         </div>
       </div>
     </section>
-    <!-- item page -->
-    <section id="item-page" class="page">item</section>
+
+    <section id="item-page" class="page position-relative">
+      <div class="card shadow-lg p-3">
+        <h2 class="card-title text-primary mb-4">Item Management</h2>
+
+        <div class="table-responsive">
+          <table
+            class="table table-bordered table-striped table-hover align-middle"
+          >
+            <thead class="table-dark">
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th style="width: 150px">Action</th>
+              </tr>
+            </thead>
+            <tbody id="item-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <button
+        id="btn-item-modal-open"
+        class="btn btn-success btn-lg rounded-circle shadow-lg position-absolute bottom-0 end-0 m-4"
+        style="width: 60px; height: 60px; font-size: 1.5rem; z-index: 1050"
+        data-bs-toggle="modal"
+        data-bs-target="#item-form-modal"
+      >
+        +
+      </button>
+
+      <div
+        class="modal fade"
+        id="item-form-modal"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+              <h5 id="item-modal-title" class="modal-title">Add Item</h5>
+              <button
+                type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form class="row g-3">
+                <input id="edit-index" type="hidden" />
+                <div class="col-md-6">
+                  <label for="item-id" class="form-label">Item ID</label>
+                  <input
+                    id="item-id"
+                    type="text"
+                    placeholder="e.g., I001"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="item-name" class="form-label">Item Name</label>
+                  <input
+                    id="item-name"
+                    type="text"
+                    placeholder="e.g., T-Shirt"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="item-price" class="form-label"
+                    >Unit Price (Rs.)</label
+                  >
+                  <input
+                    id="item-price"
+                    type="number"
+                    placeholder="e.g., 1500.00"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="item-qty" class="form-label"
+                    >Quantity on Hand</label
+                  >
+                  <input
+                    id="item-qty"
+                    type="number"
+                    placeholder="e.g., 50"
+                    class="form-control"
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancel
+              </button>
+              <button id="btn-item-save" class="btn btn-primary" type="button">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- order page -->
     <section id="order-page" class="page">order</section>
