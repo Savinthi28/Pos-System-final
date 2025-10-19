@@ -286,7 +286,60 @@
     </section>
 
     <!-- order page -->
-    <section id="order-page" class="page">order</section>
+    <section id="order-page" class="page">
+      <div class="d-flex justify-content-between gap-5">
+        <div class="w-100">
+          <form class="d-flex flex-column gap-2">
+            <input
+              id="order-id"
+              type="text"
+              placeholder="id"
+              class="px-4 py-1"
+            />
+            <input
+              id="order-date"
+              type="text"
+              placeholder="date"
+              class="px-4 py-1"
+            />
+            <input
+              id="order-customer-id"
+              type="number"
+              placeholder="customer id"
+              class="px-4 py-1"
+            />
+            <input
+              id="order-total"
+              type="number"
+              placeholder="total"
+              class="px-4 py-1"
+            />
+            <div>
+              <button
+                id="btn-order-save"
+                class="btn btn-primary w-100"
+                type="button"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="w-100">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Customer ID</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="order-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
 
     <script src="assets/lib/jQuery/jquery-3.6.4.min.js"></script>
     <script
