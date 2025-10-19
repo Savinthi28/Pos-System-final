@@ -285,58 +285,108 @@
       </div>
     </section>
 
-    <!-- order page -->
-    <section id="order-page" class="page">
-      <div class="d-flex justify-content-between gap-5">
-        <div class="w-100">
-          <form class="d-flex flex-column gap-2">
-            <input
-              id="order-id"
-              type="text"
-              placeholder="id"
-              class="px-4 py-1"
-            />
-            <input
-              id="order-date"
-              type="text"
-              placeholder="date"
-              class="px-4 py-1"
-            />
-            <input
-              id="order-customer-id"
-              type="number"
-              placeholder="customer id"
-              class="px-4 py-1"
-            />
-            <input
-              id="order-total"
-              type="number"
-              placeholder="total"
-              class="px-4 py-1"
-            />
-            <div>
-              <button
-                id="btn-order-save"
-                class="btn btn-primary w-100"
-                type="button"
-              >
-                Save
-              </button>
-            </div>
-          </form>
-        </div>
-        <div class="w-100">
-          <table class="table table-bordered table-striped">
-            <thead>
+    <!-- Prder page  -->
+
+    <section id="order-page" class="page position-relative">
+      <div class="card shadow-lg p-3">
+        <h2 class="card-title text-primary mb-4">Order Management</h2>
+
+        <div class="table-responsive">
+          <table
+            class="table table-bordered table-striped table-hover align-middle"
+          >
+            <thead class="table-dark">
               <tr>
                 <th>Id</th>
                 <th>Date</th>
                 <th>Customer ID</th>
-                <th>Total</th>
+                <th>Total (Rs.)</th>
+                <th style="width: 150px">Action</th>
               </tr>
             </thead>
             <tbody id="order-table-body"></tbody>
           </table>
+        </div>
+      </div>
+
+      <button
+        id="btn-order-modal-open"
+        class="btn btn-success btn-lg rounded-circle shadow-lg position-absolute bottom-0 end-0 m-4"
+        style="width: 60px; height: 60px; font-size: 1.5rem; z-index: 1050"
+      >
+        +
+      </button>
+
+      <div
+        class="modal fade"
+        id="order-form-modal"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+              <h5 id="order-modal-title" class="modal-title">Add Order</h5>
+              <button
+                type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form class="row g-3">
+                <input id="edit-order-index" type="hidden" />
+
+                <div class="col-md-6">
+                  <label for="order-id" class="form-label">Order ID</label>
+                  <input
+                    id="order-id"
+                    type="text"
+                    placeholder="e.g., O005"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="order-date" class="form-label">Date</label>
+                  <input id="order-date" type="date" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="order-customer-id" class="form-label"
+                    >Customer ID</label
+                  >
+                  <input
+                    id="order-customer-id"
+                    type="text"
+                    placeholder="e.g., C001"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="order-total" class="form-label"
+                    >Total (Rs.)</label
+                  >
+                  <input
+                    id="order-total"
+                    type="number"
+                    placeholder="e.g., 5500.00"
+                    class="form-control"
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancel
+              </button>
+              <button id="btn-order-save" class="btn btn-primary" type="button">
+                Save
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
