@@ -1,6 +1,20 @@
 import Order from "../model/Order.js";
-// customer_array එකත් import කරගන්න ඕන
-import { order_array, customer_array } from "../db/DB.js";
+// item_array සහ customer_array දෙකම DB.js එකෙන් import කර ඇත
+import { order_array, customer_array, item_array } from "../db/DB.js";
+
+// Item ComboBox එකට data load කරන function එක
+const loadItemNames = () => {
+  $("#order-item-name").empty();
+  $("#order-item-name").append(
+    '<option value="" disabled selected>Select an Item</option>'
+  );
+  item_array.forEach((item) => {
+    // Option Value එක ලෙස Item ID එක යොදයි
+    $("#order-item-name").append(
+      `<option value="${item.id}">${item.name}</option>`
+    );
+  });
+};
 
 const cleanForm = () => {
   $("#order-id").val("");
@@ -9,7 +23,9 @@ const cleanForm = () => {
   $("#order-customer-id").val("");
   $("#order-total").val("");
   $("#edit-order-index").val("");
-  $("#customer-name-display").text(""); // Name display එකත් clear කරයි
+  $("#customer-name-display").text(""); // Customer Name display එකත් clear කරයි
+  $("#order-item-name").val(""); // Item select box එකත් clear කරයි
+  $("#selected-item-info").val(""); // Item Info එකත් clear කරයි
 };
 
 const loadTable = () => {
@@ -22,8 +38,7 @@ const loadTable = () => {
     const dataElement = `
       <tr>
         <td>${order.id}</td>
-        <td>${customerName}</td> 
-        <td>${order.qty}</td>
+        <td>${customerName}</td> <td>${order.item_name}</td> <td>${order.qty}</td>
         <td>${order.total}</td>
         <td>${order.date}</td>
         <td>
@@ -36,7 +51,7 @@ const loadTable = () => {
 
 loadTable();
 
-// Contact Number එක ඇතුළු කරන විට Customer Name එක පෙන්වීමට
+// Customer Contact Number එක ඇතුළු කරන විට Customer Name එක පෙන්වීමට
 $("#order-customer-id").on("keyup", function () {
   const contactNumber = $(this).val().trim();
   const customerNameDisplay = $("#customer-name-display");
@@ -48,14 +63,28 @@ $("#order-customer-id").on("keyup", function () {
     // customer සොයා ගත්තොත් නම පෙන්වීම
     customerNameDisplay
       .text(`Customer: ${customer.name} (ID: ${customer.id})`)
-      .removeClass("text-danger")
+      .removeClass("text-danger text-muted")
       .addClass("text-success fw-bold");
   } else {
     // customer සොයා නොගත්තොත්
     customerNameDisplay
       .text("Customer not found")
-      .removeClass("text-success fw-bold")
+      .removeClass("text-success fw-bold text-muted")
       .addClass("text-danger");
+  }
+});
+
+// Item Name එක Select කළ විට එහි විස්තර පෙන්වීමට
+$("#order-item-name").on("change", function () {
+  const selectedItemId = $(this).val();
+  const selectedItem = item_array.find((item) => item.id === selectedItemId);
+
+  if (selectedItem) {
+    $("#selected-item-info").val(
+      `ID: ${selectedItem.id} | Price: Rs. ${selectedItem.price} | Qty on Hand: ${selectedItem.qty}`
+    );
+  } else {
+    $("#selected-item-info").val("Item not found");
   }
 });
 
@@ -65,16 +94,19 @@ $("#btn-order-save").on("click", (e) => {
   const order_id = $("#order-id").val();
   const order_date = $("#order-date").val();
   const order_qty = $("#order-qty").val();
-  const order_customer_contact = $("#order-customer-id").val(); // Contact Number එක ගන්න
+  const order_customer_contact = $("#order-customer-id").val();
   const total = $("#order-total").val();
   const editIndex = $("#edit-order-index").val();
+
+  const item_id = $("#order-item-name").val(); // තෝරාගත් Item ID එක
 
   if (
     !order_id ||
     !order_date ||
     !order_qty ||
     !order_customer_contact ||
-    !total
+    !total ||
+    !item_id
   ) {
     console.error("All fields must be required !");
     alert("සියලුම ක්ෂේත්‍ර පිරවිය යුතුය!");
@@ -94,10 +126,22 @@ $("#btn-order-save").on("click", (e) => {
     return;
   }
 
-  // Customer ID එක Order එකට ඇතුළත් කිරීම
   const customer_id = customer.id;
 
-  const order = new Order(order_id, customer_id, order_qty, total, order_date);
+  // Item Details සොයා ගැනීම
+  const selectedItem = item_array.find((item) => item.id === item_id);
+  const item_name = selectedItem ? selectedItem.name : "N/A";
+
+  // Order Model එකට Item ID සහ Item Name එකතු කරයි
+  const order = new Order(
+    order_id,
+    customer_id,
+    item_id,
+    item_name,
+    order_qty,
+    total,
+    order_date
+  );
 
   if (editIndex === "") {
     if (order_array.some((i) => i.id === order_id)) {
@@ -135,6 +179,7 @@ $("#btn-order-modal-open").on("click", function () {
   $("#order-modal-title").text("Add Order");
   $("#edit-order-index").val("");
   cleanForm();
+  loadItemNames(); // Modal එක open කරන විට Item names load කරයි
   const modalEl = document.getElementById("order-form-modal");
   if (typeof bootstrap !== "undefined" && modalEl) {
     const modal = new bootstrap.Modal(modalEl);

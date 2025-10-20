@@ -62,7 +62,6 @@
       </div>
     </nav>
 
-    <!-- home page -->
     <section id="home-page" class="page">home</section>
     <section id="customer-page" class="page position-relative">
       <div class="card shadow-lg p-3">
@@ -86,7 +85,6 @@
         </div>
       </div>
 
-      <!-- Customer page -->
       <button
         id="btn-customer-modal-open"
         class="btn btn-success btn-lg rounded-circle shadow-lg position-absolute bottom-0 end-0 m-4"
@@ -177,8 +175,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Item Page  -->
 
     <section id="item-page" class="page position-relative">
       <div class="card shadow-lg p-3">
@@ -287,8 +283,6 @@
       </div>
     </section>
 
-    <!-- Order page  -->
-
     <section id="order-page" class="page position-relative">
       <div class="card shadow-lg p-3">
         <h2 class="card-title text-primary mb-4">Order Management</h2>
@@ -301,6 +295,7 @@
               <tr>
                 <th>Id</th>
                 <th>Customer Name</th>
+                <th>Item Name</th>
                 <th>Qty</th>
                 <th>Total (Rs.)</th>
                 <th>Date</th>
@@ -371,12 +366,35 @@
                     class="form-text text-muted"
                   ></small>
                 </div>
+
+                <div class="col-md-6">
+                  <label for="order-item-name" class="form-label"
+                    >Item Name</label
+                  >
+                  <select id="order-item-name" class="form-select">
+                    <option value="" disabled selected>Select an Item</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="selected-item-info" class="form-label"
+                    >Item Details</label
+                  >
+                  <input
+                    id="selected-item-info"
+                    type="text"
+                    class="form-control"
+                    readonly
+                    placeholder="Item details will appear here"
+                  />
+                </div>
+
                 <div class="col-md-6">
                   <label for="order-qty" class="form-label">Quantity</label>
                   <input
                     id="order-qty"
-                    type="text"
-                    placeholder="e.g., C001"
+                    type="number"
+                    placeholder="e.g., 1"
                     class="form-control"
                   />
                 </div>
@@ -429,9 +447,6 @@
     <script type="module" src="model/Customer.js"></script>
     <script type="module" src="model/Item.js"></script>
     <script type="module" src="model/Order.js"></script>
-    <!-- <script type="module" src="model/OrderDetails.js"></script> -->
-
-    <!-- <script type="module" src="controller/IndexController.js"></script> -->
     <script type="module" src="controller/CustomerController.js"></script>
     <script type="module" src="controller/ItemController.js"></script>
     <script type="module" src="controller/OrderController.js"></script>

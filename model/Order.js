@@ -1,7 +1,10 @@
 export default class Order {
-  constructor(id, customer_id, qty, total, date) {
+  // item_id සහ item_name අලුතින් constructor එකට එකතු කර ඇත
+  constructor(id, customer_id, item_id, item_name, qty, total, date) {
     this._id = id;
     this._customer_id = customer_id;
+    this._item_id = item_id;
+    this._item_name = item_name;
     this._qty = qty;
     this._total = total;
     this._date = date;
@@ -37,6 +40,22 @@ export default class Order {
 
   set customer_id(customer_id) {
     this._customer_id = customer_id;
+  }
+
+  get item_id() {
+    return this._item_id;
+  }
+
+  set item_id(item_id) {
+    this._item_id = item_id;
+  }
+
+  get item_name() {
+    return this._item_name;
+  }
+
+  set item_name(item_name) {
+    this._item_name = item_name;
   }
 
   get total() {
