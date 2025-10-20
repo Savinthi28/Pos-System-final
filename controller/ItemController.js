@@ -89,12 +89,12 @@ $("#item-table-body").on("click", ".btn-edit", (e) => {
 $("#item-table-body").on("click", ".btn-delete", function () {
   const index = $(this).data("index");
 
-  if (
-    confirm(`Are you sure you want to delete item ID: ${item_array[index].id}?`)
-  ) {
+  const res = confirm(`Are you sure you want to delete ?`);
+
+  if (res) {
     item_array.splice(index, 1);
-    loadTable();
   }
+  loadTable();
 });
 
 loadTable();
