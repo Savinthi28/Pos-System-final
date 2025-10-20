@@ -300,7 +300,7 @@
             <thead class="table-dark">
               <tr>
                 <th>Id</th>
-                <th>Customer ID</th>
+                <th>Customer Name</th>
                 <th>Qty</th>
                 <th>Total (Rs.)</th>
                 <th>Date</th>
@@ -358,14 +358,18 @@
 
                 <div class="col-md-6">
                   <label for="order-customer-id" class="form-label"
-                    >Customer ID</label
+                    >Customer Contact Number</label
                   >
                   <input
                     id="order-customer-id"
                     type="text"
-                    placeholder="e.g., C001"
+                    placeholder="e.g., 07x xxx xxxx"
                     class="form-control"
                   />
+                  <small
+                    id="customer-name-display"
+                    class="form-text text-muted"
+                  ></small>
                 </div>
                 <div class="col-md-6">
                   <label for="order-qty" class="form-label">Quantity</label>

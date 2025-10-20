@@ -1,5 +1,6 @@
 import Order from "../model/Order.js";
-import { order_array } from "../db/DB.js";
+// customer_array එකත් import කරගන්න ඕන
+import { order_array, customer_array } from "../db/DB.js";
 
 const cleanForm = () => {
   $("#order-id").val("");
@@ -8,15 +9,20 @@ const cleanForm = () => {
   $("#order-customer-id").val("");
   $("#order-total").val("");
   $("#edit-order-index").val("");
+  $("#customer-name-display").text(""); // Name display එකත් clear කරයි
 };
 
 const loadTable = () => {
   $("#order-table-body").empty();
   order_array.forEach((order, index) => {
+    // Customer ID එකට අදාළ Customer Name එක සොයා ගැනීම
+    const customer = customer_array.find((c) => c.id === order.customer_id);
+    const customerName = customer ? customer.name : "Unknown Customer";
+
     const dataElement = `
       <tr>
         <td>${order.id}</td>
-        <td>${order.customer_id}</td>
+        <td>${customerName}</td> 
         <td>${order.qty}</td>
         <td>${order.total}</td>
         <td>${order.date}</td>
@@ -30,26 +36,73 @@ const loadTable = () => {
 
 loadTable();
 
+// Contact Number එක ඇතුළු කරන විට Customer Name එක පෙන්වීමට
+$("#order-customer-id").on("keyup", function () {
+  const contactNumber = $(this).val().trim();
+  const customerNameDisplay = $("#customer-name-display");
+
+  // customer_array එකෙන් දුරකථන අංකයට අදාළ customer සොයා ගැනීම
+  const customer = customer_array.find((c) => c.contact === contactNumber);
+
+  if (customer) {
+    // customer සොයා ගත්තොත් නම පෙන්වීම
+    customerNameDisplay
+      .text(`Customer: ${customer.name} (ID: ${customer.id})`)
+      .removeClass("text-danger")
+      .addClass("text-success fw-bold");
+  } else {
+    // customer සොයා නොගත්තොත්
+    customerNameDisplay
+      .text("Customer not found")
+      .removeClass("text-success fw-bold")
+      .addClass("text-danger");
+  }
+});
+
 $("#btn-order-save").on("click", (e) => {
   e.preventDefault();
 
   const order_id = $("#order-id").val();
   const order_date = $("#order-date").val();
   const order_qty = $("#order-qty").val();
-  const customer_id = $("#order-customer-id").val();
+  const order_customer_contact = $("#order-customer-id").val(); // Contact Number එක ගන්න
   const total = $("#order-total").val();
   const editIndex = $("#edit-order-index").val();
 
-  if (!order_id || !order_date || !order_qty || !customer_id || !total) {
+  if (
+    !order_id ||
+    !order_date ||
+    !order_qty ||
+    !order_customer_contact ||
+    !total
+  ) {
     console.error("All fields must be required !");
+    alert("සියලුම ක්ෂේත්‍ර පිරවිය යුතුය!");
     return;
   }
+
+  // Contact Number එකට අදාළ Customer සොයා ගැනීම
+  const customer = customer_array.find(
+    (c) => c.contact === order_customer_contact
+  );
+
+  if (!customer) {
+    console.error(
+      `Customer with contact number ${order_customer_contact} not found!`
+    );
+    alert("Error: මෙම දුරකථන අංකයට අදාළ පාරිභෝගිකයෙක් හමු නොවීය!");
+    return;
+  }
+
+  // Customer ID එක Order එකට ඇතුළත් කිරීම
+  const customer_id = customer.id;
 
   const order = new Order(order_id, customer_id, order_qty, total, order_date);
 
   if (editIndex === "") {
     if (order_array.some((i) => i.id === order_id)) {
       console.error(`Duplicate ID Error: Order ID ${order_id} already exists!`);
+      alert(`Error: Order ID ${order_id} දැනටමත් පවතී!`);
       return;
     }
     order_array.push(order);
