@@ -285,7 +285,7 @@
       </div>
     </section>
 
-    <!-- Prder page  -->
+    <!-- Order page  -->
 
     <section id="order-page" class="page position-relative">
       <div class="card shadow-lg p-3">
@@ -298,9 +298,10 @@
             <thead class="table-dark">
               <tr>
                 <th>Id</th>
-                <th>Date</th>
                 <th>Customer ID</th>
+                <th>Qty</th>
                 <th>Total (Rs.)</th>
+                <th>Date</th>
                 <th style="width: 150px">Action</th>
               </tr>
             </thead>
@@ -359,6 +360,15 @@
                   >
                   <input
                     id="order-customer-id"
+                    type="text"
+                    placeholder="e.g., C001"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="order-qty" class="form-label">Quantity</label>
+                  <input
+                    id="order-qty"
                     type="text"
                     placeholder="e.g., C001"
                     class="form-control"

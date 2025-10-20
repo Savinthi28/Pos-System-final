@@ -1,9 +1,10 @@
 export default class Order {
-  constructor(id, date, customer_id, total) {
+  constructor(id, customer_id, qty, total, date) {
     this._id = id;
-    this._date = date;
     this._customer_id = customer_id;
+    this._qty = qty;
     this._total = total;
+    this._date = date;
   }
 
   get id() {
@@ -20,6 +21,14 @@ export default class Order {
 
   set date(date) {
     this._date = date;
+  }
+
+  get qty() {
+    return this._qty;
+  }
+
+  set qty(qty) {
+    this._qty = qty;
   }
 
   get customer_id() {
