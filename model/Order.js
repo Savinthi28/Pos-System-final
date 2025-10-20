@@ -5,8 +5,8 @@ export default class Order {
     this._customer_id = customer_id;
     this._item_id = item_id;
     this._item_name = item_name;
-    this._qty = qty;
-    this._total = total;
+    this._qty = parseInt(qty); // Quantity integer ලෙස ගබඩා කරයි
+    this._total = parseFloat(total); // Total float ලෙස ගබඩා කරයි
     this._date = date;
   }
 
@@ -31,7 +31,7 @@ export default class Order {
   }
 
   set qty(qty) {
-    this._qty = qty;
+    this._qty = parseInt(qty);
   }
 
   get customer_id() {
@@ -63,6 +63,6 @@ export default class Order {
   }
 
   set total(total) {
-    this._total = total;
+    this._total = parseFloat(total);
   }
 }

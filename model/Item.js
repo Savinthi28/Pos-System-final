@@ -2,8 +2,8 @@ export default class Item {
   constructor(id, name, price, qty) {
     this._id = id;
     this._name = name;
-    this._price = price;
-    this._qty = qty;
+    this._price = parseFloat(price);
+    this._qty = parseInt(qty);
   }
 
   get id() {
@@ -22,12 +22,12 @@ export default class Item {
     return this._price;
   }
   set price(price) {
-    this._price = price;
+    this._price = parseFloat(price);
   }
   get qty() {
     return this._qty;
   }
   set qty(qty) {
-    this._qty = qty;
+    this._qty = parseInt(qty);
   }
 }

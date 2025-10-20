@@ -2,10 +2,11 @@ import { item_array } from "../db/DB.js";
 import Item from "../model/Item.js";
 
 const cleanForm = () => {
-  $("#item-id").val("");
+  $("#item-id").val("").prop("disabled", false); // ID එක Clear කර Enable කරයි
   $("#item-name").val("");
   $("#item-price").val("");
   $("#item-qty").val("");
+  $("#edit-index").val(""); // Edit index එකත් Clear කරයි
 };
 
 const loadTable = () => {
@@ -26,6 +27,20 @@ const loadTable = () => {
   });
 };
 
+// 💡 අලුතින් එකතු කළ කොටස: Add Modal එක විවෘත කිරීම සඳහා
+$("#btn-item-modal-open").on("click", () => {
+  $("#item-modal-title").text("Add Item"); // Title එක "Add Item" ලෙස සකසයි
+  $("#btn-item-save").text("Save"); // Button text එක "Save" ලෙස සකසයි
+  cleanForm(); // Form එක Clear කර ID එක Enable කරයි
+
+  // Modal එක විවෘත කිරීම
+  const modalEl = document.getElementById("#item-form-modal");
+  if (typeof bootstrap !== "undefined" && modalEl) {
+    const modal = new bootstrap.Modal(modalEl); // නැවත අලුත් Modal එකක් හදන්න
+    modal.show();
+  }
+});
+
 $("#btn-item-save").on("click", (e) => {
   e.preventDefault();
 
@@ -37,6 +52,7 @@ $("#btn-item-save").on("click", (e) => {
 
   if (!item_id || !item_name || !item_price || !item_qty) {
     console.error("Validation Error: All fields required..!");
+    alert("සියලුම ක්ෂේත්‍ර පිරවිය යුතුය!");
     return;
   }
 
@@ -45,6 +61,7 @@ $("#btn-item-save").on("click", (e) => {
   if (editIndex === "") {
     if (item_array.some((i) => i.id === item_id)) {
       console.error(`Duplicate ID Error: Item ID ${item_id} already exists!`);
+      alert(`Error: Item ID ${item_id} දැනටමත් පවතී!`);
       return;
     }
 
@@ -56,8 +73,10 @@ $("#btn-item-save").on("click", (e) => {
   loadTable();
   cleanForm();
 
+  // Modal එක වැසීම
   const modalEl = document.getElementById("#item-form-modal");
   if (typeof bootstrap !== "undefined" && modalEl) {
+    // ID එක "#item-form-modal" යන්නෙන් # ලකුණ ඉවත් කළ යුතුය
     const modal = bootstrap.Modal.getInstance(modalEl);
     if (modal) {
       modal.hide();
@@ -71,7 +90,7 @@ $("#item-table-body").on("click", ".btn-edit", (e) => {
 
   $("#item-modal-title").text("Edit Item");
 
-  $("#item-id").val(item.id).prop("disabled", true);
+  $("#item-id").val(item.id).prop("disabled", true); // Edit කිරීමේදී ID එක Disable කරයි
   $("#item-name").val(item.name);
   $("#item-price").val(item.price);
   $("#item-qty").val(item.qty);
