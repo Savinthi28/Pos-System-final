@@ -18,8 +18,8 @@ const loadTable = () => {
       <td>${customer.address}</td>
       <td>${customer.contact}</td>
       <td>
-        <button class="btn btn-warning btn-edit" data-index="${index}">Edit</button>
-        <button class="btn btn-danger btn-delete" data-index="${index}">Delete</button>
+             <button class="btn btn-warning btn-sm btn-edit" data-index="${index}"><i class="bi bi-pencil-square"></i> Edit</button>
+        <button class="btn btn-danger btn-sm btn-delete" data-index="${index}"><i class="bi bi-trash"></i> Delete</button>
       </td>
     </tr>`;
 

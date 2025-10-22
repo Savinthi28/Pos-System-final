@@ -1,12 +1,11 @@
 export default class Order {
-  // item_id සහ item_name අලුතින් constructor එකට එකතු කර ඇත
   constructor(id, customer_id, item_id, item_name, qty, total, date) {
     this._id = id;
     this._customer_id = customer_id;
     this._item_id = item_id;
     this._item_name = item_name;
-    this._qty = parseInt(qty); // Quantity integer ලෙස ගබඩා කරයි
-    this._total = parseFloat(total); // Total float ලෙස ගබඩා කරයි
+    this._qty = parseInt(qty);
+    this._total = parseFloat(total);
     this._date = date;
   }
 

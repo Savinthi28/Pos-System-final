@@ -1,12 +1,14 @@
 import { item_array } from "../db/DB.js";
 import Item from "../model/Item.js";
 
+import { loadItemNames } from "./OrderController.js";
+
 const cleanForm = () => {
-  $("#item-id").val("").prop("disabled", false); // ID එක Clear කර Enable කරයි
+  $("#item-id").val("").prop("disabled", false);
   $("#item-name").val("");
   $("#item-price").val("");
   $("#item-qty").val("");
-  $("#edit-index").val(""); // Edit index එකත් Clear කරයි
+  $("#edit-index").val("");
 };
 
 const loadTable = () => {
@@ -16,29 +18,24 @@ const loadTable = () => {
     <tr class="hover:bg-gray-50 transition-colors">
       <td>${item.id}</td>
       <td>${item.name}</td>
-      <td>Rs. ${item.price}</td>
+      <td>Rs. ${parseFloat(item.price).toFixed(2)}</td>
       <td>${item.qty}</td>
       <td>
-        <button class="btn btn-warning btn-edit" data-index="${index}">Edit</button>
-        <button class="btn btn-danger btn-delete" data-index="${index}">Delete</button>
+        <button class="btn btn-warning btn-sm btn-edit" data-index="${index}"><i class="bi bi-pencil-square"></i> Edit</button>
+        <button class="btn btn-danger btn-sm btn-delete" data-index="${index}"><i class="bi bi-trash"></i> Delete</button>
       </td>
     </tr>`;
     $("#item-table-body").append(dataElement);
   });
 };
 
-// 💡 අලුතින් එකතු කළ කොටස: Add Modal එක විවෘත කිරීම සඳහා
 $("#btn-item-modal-open").on("click", () => {
-  $("#item-modal-title").text("Add Item"); // Title එක "Add Item" ලෙස සකසයි
-  $("#btn-item-save").text("Save"); // Button text එක "Save" ලෙස සකසයි
-  cleanForm(); // Form එක Clear කර ID එක Enable කරයි
-
-  // Modal එක විවෘත කිරීම
-  const modalEl = document.getElementById("#item-form-modal");
-  if (typeof bootstrap !== "undefined" && modalEl) {
-    const modal = new bootstrap.Modal(modalEl); // නැවත අලුත් Modal එකක් හදන්න
-    modal.show();
-  }
+  $("#item-modal-title").text("Add Item");
+  $("#btn-item-save")
+    .html('<i class="bi bi-save"></i> Save')
+    .removeClass("btn-primary")
+    .addClass("btn-success");
+  cleanForm();
 });
 
 $("#btn-item-save").on("click", (e) => {
@@ -51,7 +48,6 @@ $("#btn-item-save").on("click", (e) => {
   const editIndex = $("#edit-index").val();
 
   if (!item_id || !item_name || !item_price || !item_qty) {
-    console.error("Validation Error: All fields required..!");
     alert("සියලුම ක්ෂේත්‍ර පිරවිය යුතුය!");
     return;
   }
@@ -60,11 +56,9 @@ $("#btn-item-save").on("click", (e) => {
 
   if (editIndex === "") {
     if (item_array.some((i) => i.id === item_id)) {
-      console.error(`Duplicate ID Error: Item ID ${item_id} already exists!`);
       alert(`Error: Item ID ${item_id} දැනටමත් පවතී!`);
       return;
     }
-
     item_array.push(item);
   } else {
     item_array[editIndex] = item;
@@ -73,13 +67,18 @@ $("#btn-item-save").on("click", (e) => {
   loadTable();
   cleanForm();
 
-  // Modal එක වැසීම
-  const modalEl = document.getElementById("#item-form-modal");
+  loadItemNames();
+
+  const modalEl = document.getElementById("item-form-modal");
   if (typeof bootstrap !== "undefined" && modalEl) {
-    // ID එක "#item-form-modal" යන්නෙන් # ලකුණ ඉවත් කළ යුතුය
     const modal = bootstrap.Modal.getInstance(modalEl);
     if (modal) {
       modal.hide();
+
+      setTimeout(() => {
+        $(".modal-backdrop").remove();
+        $("body").removeClass("modal-open");
+      }, 300);
     }
   }
 });
@@ -90,13 +89,16 @@ $("#item-table-body").on("click", ".btn-edit", (e) => {
 
   $("#item-modal-title").text("Edit Item");
 
-  $("#item-id").val(item.id).prop("disabled", true); // Edit කිරීමේදී ID එක Disable කරයි
+  $("#item-id").val(item.id).prop("disabled", true);
   $("#item-name").val(item.name);
   $("#item-price").val(item.price);
   $("#item-qty").val(item.qty);
 
   $("#edit-index").val(index);
-  $("#btn-item-save").text("Update");
+  $("#btn-item-save")
+    .html('<i class="bi bi-arrow-up-circle"></i> Update')
+    .removeClass("btn-success")
+    .addClass("btn-primary");
 
   const modalEl = document.getElementById("item-form-modal");
   if (typeof bootstrap !== "undefined" && modalEl) {
@@ -108,12 +110,18 @@ $("#item-table-body").on("click", ".btn-edit", (e) => {
 $("#item-table-body").on("click", ".btn-delete", function () {
   const index = $(this).data("index");
 
-  const res = confirm(`Are you sure you want to delete ?`);
+  const itemToDelete = item_array[index];
+  const res = confirm(
+    `Are you sure you want to delete Item ID ${itemToDelete.id} (${itemToDelete.name})?`
+  );
 
   if (res) {
     item_array.splice(index, 1);
+    loadItemNames();
   }
   loadTable();
 });
 
-loadTable();
+$(document).ready(function () {
+  loadTable();
+});

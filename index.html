@@ -10,6 +10,10 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
 
@@ -62,10 +66,21 @@
       </div>
     </nav>
 
-    <section id="home-page" class="page">home</section>
-    <section id="customer-page" class="page position-relative">
+    <section id="home-page" class="page container-fluid py-4">
       <div class="card shadow-lg p-3">
-        <h2 class="card-title text-primary mb-4">Customer Management</h2>
+        <h2 class="card-title text-primary mb-4">Welcome to My POSS</h2>
+        <p>This is the Home Page content.</p>
+      </div>
+    </section>
+
+    <section
+      id="customer-page"
+      class="page container-fluid py-4 position-relative"
+    >
+      <div class="card shadow-lg p-3">
+        <h2 class="card-title text-primary mb-4 border-bottom pb-2">
+          Customer Management
+        </h2>
 
         <div class="table-responsive">
           <table
@@ -87,10 +102,10 @@
 
       <button
         id="btn-customer-modal-open"
-        class="btn btn-success btn-lg rounded-circle shadow-lg position-absolute bottom-0 end-0 m-4"
+        class="btn btn-primary btn-lg rounded-circle shadow-lg position-absolute bottom-0 end-0 m-4"
         style="width: 60px; height: 60px; font-size: 1.5rem; z-index: 1050"
       >
-        +
+        <i class="bi bi-plus"></i>
       </button>
 
       <div
@@ -161,14 +176,14 @@
             </div>
             <div class="modal-footer">
               <button class="btn btn-secondary" data-bs-dismiss="modal">
-                Cancel
+                <i class="bi bi-x-lg"></i> Cancel
               </button>
               <button
                 id="btn-customer-save"
-                class="btn btn-primary"
+                class="btn btn-success"
                 type="button"
               >
-                Save
+                <i class="bi bi-save"></i> Save
               </button>
             </div>
           </div>
@@ -176,9 +191,11 @@
       </div>
     </section>
 
-    <section id="item-page" class="page position-relative">
+    <section id="item-page" class="page container-fluid py-4 position-relative">
       <div class="card shadow-lg p-3">
-        <h2 class="card-title text-primary mb-4">Item Management</h2>
+        <h2 class="card-title text-primary mb-4 border-bottom pb-2">
+          Item Management
+        </h2>
 
         <div class="table-responsive">
           <table
@@ -200,12 +217,12 @@
 
       <button
         id="btn-item-modal-open"
-        class="btn btn-success btn-lg rounded-circle shadow-lg position-absolute bottom-0 end-0 m-4"
+        class="btn btn-primary btn-lg rounded-circle shadow-lg position-absolute bottom-0 end-0 m-4"
         style="width: 60px; height: 60px; font-size: 1.5rem; z-index: 1050"
         data-bs-toggle="modal"
         data-bs-target="#item-form-modal"
       >
-        +
+        <i class="bi bi-plus"></i>
       </button>
 
       <div
@@ -272,10 +289,10 @@
             </div>
             <div class="modal-footer">
               <button class="btn btn-secondary" data-bs-dismiss="modal">
-                Cancel
+                <i class="bi bi-x-lg"></i> Cancel
               </button>
-              <button id="btn-item-save" class="btn btn-primary" type="button">
-                Save
+              <button id="btn-item-save" class="btn btn-success" type="button">
+                <i class="bi bi-save"></i> Save
               </button>
             </div>
           </div>
@@ -283,9 +300,174 @@
       </div>
     </section>
 
-    <section id="order-page" class="page position-relative">
-      <div class="card shadow-lg p-3">
-        <h2 class="card-title text-primary mb-4">Order Management</h2>
+    <section id="order-page" class="page container-fluid py-4">
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="card shadow-lg mb-4">
+            <div class="card-header bg-primary text-white">
+              <h4 class="mb-0">Customer & Item Details</h4>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-secondary border-bottom pb-2 mb-3">
+                Customer Info
+              </h5>
+              <div class="mb-3">
+                <label for="order-customer-contact" class="form-label fw-bold"
+                  >Customer Contact Number</label
+                >
+                <input
+                  id="order-customer-contact"
+                  type="text"
+                  placeholder="e.g., 07x xxx xxxx"
+                  class="form-control"
+                />
+                <small
+                  id="customer-name-display"
+                  class="form-text text-muted"
+                ></small>
+              </div>
+
+              <h5
+                class="card-title text-secondary border-bottom pb-2 mb-3 mt-4"
+              >
+                Add Items to Cart
+              </h5>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="order-item-name" class="form-label"
+                    >Item Name</label
+                  >
+                  <select id="order-item-name" class="form-select">
+                    <option value="" disabled selected>Select an Item</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="order-qty" class="form-label">Quantity</label>
+                  <input
+                    id="order-qty"
+                    type="number"
+                    placeholder="e.g., 1"
+                    class="form-control"
+                    min="1"
+                    value="1"
+                  />
+                </div>
+                <div class="col-12">
+                  <input
+                    id="selected-item-info"
+                    type="text"
+                    class="form-control"
+                    readonly
+                    placeholder="Item ID, Price, and Qty on Hand will appear here"
+                  />
+                </div>
+                <div class="col-12">
+                  <h5 class="text-end text-success mt-1">
+                    Sub Total: Rs. <span id="item-sub-total">0.00</span>
+                  </h5>
+                  <button
+                    id="btn-add-to-cart"
+                    class="btn btn-success w-100"
+                    type="button"
+                    disabled
+                  >
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card shadow-lg">
+            <div class="card-header bg-info text-white">
+              <h4 class="mb-0">Shopping Cart & Order Summary</h4>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-secondary border-bottom pb-2 mb-3">
+                Cart Items
+              </h5>
+              <div class="table-responsive mb-4" style="max-height: 250px">
+                <table class="table table-sm table-striped align-middle">
+                  <thead>
+                    <tr class="table-light">
+                      <th>Item Name</th>
+                      <th>Price</th>
+                      <th>Qty</th>
+                      <th>Sub Total</th>
+                      <th style="width: 70px">Del</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cart-table-body">
+                    <tr>
+                      <td colspan="5" class="text-center text-muted">
+                        No Items in Cart
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h5
+                class="card-title text-secondary border-bottom pb-2 mb-3 mt-4"
+              >
+                Order Summary
+              </h5>
+              <form class="row g-3">
+                <div class="col-md-6">
+                  <label for="order-id" class="form-label">Order ID</label>
+                  <input
+                    id="order-id"
+                    type="text"
+                    placeholder="e.g., O005"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="order-date" class="form-label">Date</label>
+                  <input
+                    id="order-date"
+                    type="date"
+                    class="form-control"
+                    readonly
+                  />
+                </div>
+
+                <div class="col-12">
+                  <label
+                    for="order-total-display"
+                    class="form-label fw-bold fs-5"
+                    >Grand Total</label
+                  >
+                  <input
+                    id="order-total-display"
+                    type="text"
+                    class="form-control form-control-lg text-danger fw-bold text-end"
+                    readonly
+                    value="Rs. 0.00"
+                  />
+                </div>
+
+                <div class="col-12 mt-4">
+                  <button
+                    id="btn-place-order"
+                    class="btn btn-primary btn-lg w-100"
+                    type="button"
+                    disabled
+                  >
+                    Place Order
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-lg p-3 mt-4">
+        <h2 class="card-title text-primary mb-4">Past Orders</h2>
 
         <div class="table-responsive">
           <table
@@ -306,123 +488,6 @@
           </table>
         </div>
       </div>
-
-      <button
-        id="btn-order-modal-open"
-        class="btn btn-success btn-lg rounded-circle shadow-lg position-absolute bottom-0 end-0 m-4"
-        style="width: 60px; height: 60px; font-size: 1.5rem; z-index: 1050"
-      >
-        +
-      </button>
-
-      <div
-        class="modal fade"
-        id="order-form-modal"
-        tabindex="-1"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-              <h5 id="order-modal-title" class="modal-title">Add Order</h5>
-              <button
-                type="button"
-                class="btn-close btn-close-white"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form class="row g-3">
-                <input id="edit-order-index" type="hidden" />
-
-                <div class="col-md-6">
-                  <label for="order-id" class="form-label">Order ID</label>
-                  <input
-                    id="order-id"
-                    type="text"
-                    placeholder="e.g., O005"
-                    class="form-control"
-                  />
-                </div>
-
-                <div class="col-md-6">
-                  <label for="order-date" class="form-label">Date</label>
-                  <input id="order-date" type="date" class="form-control" />
-                </div>
-
-                <div class="col-md-6">
-                  <label for="order-customer-id" class="form-label"
-                    >Customer Contact Number</label
-                  >
-                  <input
-                    id="order-customer-id"
-                    type="text"
-                    placeholder="e.g., 07x xxx xxxx"
-                    class="form-control"
-                  />
-                  <small
-                    id="customer-name-display"
-                    class="form-text text-muted"
-                  ></small>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="order-item-name" class="form-label"
-                    >Item Name</label
-                  >
-                  <select id="order-item-name" class="form-select">
-                    <option value="" disabled selected>Select an Item</option>
-                  </select>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="selected-item-info" class="form-label"
-                    >Item Details</label
-                  >
-                  <input
-                    id="selected-item-info"
-                    type="text"
-                    class="form-control"
-                    readonly
-                    placeholder="Item details will appear here"
-                  />
-                </div>
-
-                <div class="col-md-6">
-                  <label for="order-qty" class="form-label">Quantity</label>
-                  <input
-                    id="order-qty"
-                    type="number"
-                    placeholder="e.g., 1"
-                    class="form-control"
-                  />
-                </div>
-
-                <div class="col-md-6">
-                  <label for="order-total" class="form-label"
-                    >Total (Rs.)</label
-                  >
-                  <input
-                    id="order-total"
-                    type="number"
-                    placeholder="e.g., 5500.00"
-                    class="form-control"
-                  />
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" data-bs-dismiss="modal">
-                Cancel
-              </button>
-              <button id="btn-order-save" class="btn btn-primary" type="button">
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <script src="assets/lib/jQuery/jquery-3.6.4.min.js"></script>
@@ -431,26 +496,14 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-      crossorigin="anonymous"
-    ></script>
 
     <script type="module" src="assets/js/app.js"></script>
-
     <script type="module" src="model/Customer.js"></script>
     <script type="module" src="model/Item.js"></script>
     <script type="module" src="model/Order.js"></script>
     <script type="module" src="controller/CustomerController.js"></script>
     <script type="module" src="controller/ItemController.js"></script>
     <script type="module" src="controller/OrderController.js"></script>
-
     <script type="module" src="db/DB.js"></script>
   </body>
 </html>
