@@ -48,7 +48,7 @@ $("#btn-item-save").on("click", (e) => {
   const editIndex = $("#edit-index").val();
 
   if (!item_id || !item_name || !item_price || !item_qty) {
-    alert("සියලුම ක්ෂේත්‍ර පිරවිය යුතුය!");
+    alert("All fields must be required!");
     return;
   }
 
@@ -56,7 +56,7 @@ $("#btn-item-save").on("click", (e) => {
 
   if (editIndex === "") {
     if (item_array.some((i) => i.id === item_id)) {
-      alert(`Error: Item ID ${item_id} දැනටමත් පවතී!`);
+      alert(`Error: Item ID ${item_id} already exist!`);
       return;
     }
     item_array.push(item);

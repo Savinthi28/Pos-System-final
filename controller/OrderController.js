@@ -216,7 +216,7 @@ $("#btn-add-to-cart").on("click", () => {
 $("#cart-table-body").on("click", ".btn-remove-cart-item", function () {
   const index = $(this).data("index");
 
-  if (confirm("Cart එකෙන් මෙම Item එක ඉවත් කිරීමට අවශ්‍යද?")) {
+  if (confirm("do you need to remove this item from the cart?")) {
     cart_array.splice(index, 1);
     loadCartTable();
   }
@@ -231,12 +231,12 @@ $("#btn-place-order").on("click", () => {
   );
 
   if (!order_id || !order_date || !order_customer_contact) {
-    alert("Order ID, Date, සහ Customer Contact Number පිරවිය යුතුය!");
+    alert("Order ID, Date, and Customer Contact Number cant be empty!");
     return;
   }
 
   if (cart_array.length === 0) {
-    alert("Order එකක් Place කිරීමට පෙර Cart එකට Items එකතු කරන්න!");
+    alert("Add items !");
     return;
   }
 
@@ -244,13 +244,13 @@ $("#btn-place-order").on("click", () => {
     (c) => c.contact === order_customer_contact
   );
   if (!customer) {
-    alert("Error: මෙම දුරකථන අංකයට අදාළ පාරිභෝගිකයෙක් හමු නොවීය!");
+    alert("Error: not match to any number !");
     return;
   }
   const customer_id = customer.id;
 
   if (order_array.some((i) => i.id === order_id)) {
-    alert(`Error: Order ID ${order_id} දැනටමත් පවතී!`);
+    alert(`Error: Order ID ${order_id} already exist`);
     return;
   }
 
@@ -277,7 +277,7 @@ $("#btn-place-order").on("click", () => {
   order_array.push(...newOrders);
 
   alert(
-    `Order ${order_id} සාර්ථකව Place කරන ලදී! Total: Rs. ${grandTotal.toFixed(
+    `Order ${order_id} placed successfully ! Total: Rs. ${grandTotal.toFixed(
       2
     )}`
   );
@@ -296,7 +296,7 @@ $("#order-table-body").on("click", ".btn-delete-order", function () {
   const item_id = deletedOrder.item_id;
   const deletedQty = parseInt(deletedOrder.qty);
 
-  if (confirm(`Order ID ${deletedOrder.id} delete කිරීමට අවශ්‍යද?`)) {
+  if (confirm(`Order ID ${deletedOrder.id} need to delete?`)) {
     const item = item_array.find((i) => i.id === item_id);
     if (item) {
       item.qty += deletedQty;
